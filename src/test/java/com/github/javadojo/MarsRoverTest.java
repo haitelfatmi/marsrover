@@ -32,7 +32,7 @@ public class MarsRoverTest {
 
     @Test
     public void driveEstThanTurnLeft() {
-        MarsRover rover = new MarsRover("rsssslssss");
+        MarsRover rover = new MarsRover("sssslssss");
         String expectedPath = new StringBuilder()
                 .append("    *")
                 .append("    |")
