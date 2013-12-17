@@ -9,13 +9,13 @@ public class MarsRoverTest {
     @Test
     public void driveEast() {
         MarsRover rover = new MarsRover("s");
-        assertThat("X*", equalTo(rover.path()));
+        assertThat("X*\n", equalTo(rover.path()));
     }
 
     @Test
     public void driveEastForABitLonger() {
         MarsRover rover = new MarsRover("ssss");
-        assertThat("X---*", equalTo(rover.path()));
+        assertThat("X---*\n", equalTo(rover.path()));
     }
 
     @Test
@@ -60,6 +60,6 @@ public class MarsRoverTest {
     @Test
     public void driveEastThanTakeSampleThanDriveABitMore() {
         MarsRover rover = new MarsRover("sssSsss");
-        assertThat("X--S--*", equalTo(rover.path()));
+        assertThat("X--S--*\n", equalTo(rover.path()));
     }
 }
