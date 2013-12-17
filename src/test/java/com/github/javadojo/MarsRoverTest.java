@@ -22,10 +22,10 @@ public class MarsRoverTest {
     public void driveNorth() {
         MarsRover rover = new MarsRover("lsss");
         String expectedPath = new StringBuilder()
-                .append("*")
-                .append("|")
-                .append("|")
-                .append("X")
+                .append("*\n")
+                .append("|\n")
+                .append("|\n")
+                .append("X\n")
                 .toString();
         assertThat(expectedPath, equalTo(rover.path()));
     }
@@ -34,11 +34,11 @@ public class MarsRoverTest {
     public void driveEstThanTurnLeft() {
         MarsRover rover = new MarsRover("sssslssss");
         String expectedPath = new StringBuilder()
-                .append("    *")
-                .append("    |")
-                .append("    |")
-                .append("    |")
-                .append("X---+")
+                .append("    *\n")
+                .append("    |\n")
+                .append("    |\n")
+                .append("    |\n")
+                .append("X---+\n")
                 .toString();
         assertThat(expectedPath, equalTo(rover.path()));
     }
@@ -50,9 +50,9 @@ public class MarsRoverTest {
                 .moveForward()
                 .moveForward();
         String expectedPath = new StringBuilder()
-                .append("    *")
-                .append("    |")
-                .append("X---+")
+                .append("    *\n")
+                .append("    |\n")
+                .append("X---+\n")
                 .toString();
         assertThat(expectedPath, equalTo(rover.path()));
     }
