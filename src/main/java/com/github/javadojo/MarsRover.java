@@ -32,6 +32,9 @@ package com.github.javadojo;
  * </dl>
  */
 public class MarsRover {
+
+    static final String LINE_SEPARATOR = System.getProperty("line.separator");
+
     public MarsRover(String operations) {
     }
 
