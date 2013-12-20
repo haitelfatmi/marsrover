@@ -1,7 +1,7 @@
 package com.github.javadojo;
 
 /**
- * The Mars rover is programmed to drive around Mars.
+ * The Path rover is programmed to drive around Path.
  * Its programming is very simple. The commands are the following:
  * <dl>
  *     <dt>s</dt>
@@ -12,21 +12,21 @@ package com.github.javadojo;
  *     <dd>turn left</dd>
  * </dl>
  *
- * Note that the Mars rover always land at the <code>X</code> and starts by facing east.
- * 
- * The Mars rover can send a 2D string representation of its path back to Mission Control. The following character are
+ * Note that the Path rover always land at the <code>X</code> and starts by facing east.
+ *
+ * The Path rover can send a 2D string representation of its pathRepresentation back to Mission Control. The following character are
  * used with the following meanings:
  * <dl>
  *     <dt>X</dt>
- *     <dd>where the Mars rover landed</dd>
+ *     <dd>where the Path rover landed</dd>
  *     <dt>*</dt>
- *     <dd>current position of the Mars rover</dd>
+ *     <dd>current position of the Path rover</dd>
  *     <dt>-</dt>
- *     <dd>path in the west-east direction</dd>
+ *     <dd>pathRepresentation in the west-east direction</dd>
  *     <dt>|</dt>
- *     <dd>path in the north-south direction</dd>
+ *     <dd>pathRepresentation in the north-south direction</dd>
  *     <dt>+</dt>
- *     <dd>a place where the Mars rover turned or a crossroad</dd>
+ *     <dd>a place where the Path rover turned or a crossroad</dd>
  *     <dt>S</dt>
  *     <dd>a place where a sample was taken</dd>
  * </dl>
@@ -35,11 +35,41 @@ public class MarsRover {
 
     static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
+    private Path path = new Path();
+    private PathRepresentation pathRepresentation = new PathRepresentation();
+
     public MarsRover(String operations) {
+
+        for (Character command: operations.toCharArray()) {
+
+            switch(command) {
+
+                case 's':
+
+                    moveForward();
+                    break;
+
+                case 'S':
+
+                    takeSample();
+                    break;
+
+                case 'l':
+
+                    turnLeft();
+                    break;
+
+                case 'r':
+
+                    turnRight();
+                    break;
+            }
+        }
     }
 
     public String path() {
-        throw new IllegalStateException("Not implemented");
+
+        return pathRepresentation.compute(path);
     }
 
     public MarsRover turnLeft() {
@@ -51,10 +81,16 @@ public class MarsRover {
     }
 
     public MarsRover moveForward() {
-        throw new IllegalStateException("Not implemented");
+
+        path.moveForward();
+
+        return this;
     }
 
     public MarsRover takeSample() {
-        throw new IllegalStateException("Not implemented");
+
+        path.takeSample();
+
+        return this;
     }
 }
