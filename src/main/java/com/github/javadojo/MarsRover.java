@@ -1,5 +1,9 @@
 package com.github.javadojo;
 
+import java.awt.*;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * The Mars rover is programmed to drive around Mars.
  * Its programming is very simple. The commands are the following:
@@ -35,26 +39,62 @@ public class MarsRover {
 
     static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
+    private final List<Operation> operations = new LinkedList<Operation>();
+
+    final Point position = new Point(0, 0);
+    Direction direction = Direction.EAST;
+
+
     public MarsRover(String operations) {
+        for (char op : operations.toCharArray()) {
+            switch (op) {
+                case 's':
+                    moveForward();
+                    break;
+                case 'r':
+                    turnRight();
+                    break;
+                case 'l':
+                    turnLeft();
+                    break;
+                case 'S':
+                    takeSample();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Operation unknown");
+            }
+        }
     }
 
     public String path() {
-        throw new IllegalStateException("Not implemented");
+        Map map = new Map();
+        // always print starting position
+        map.print(position, 'X');
+        for (Operation operation: operations) {
+            operation.execute(this, map);
+        }
+        // print end position
+        map.print(position, '*');
+        return map.toString();
     }
 
     public MarsRover turnLeft() {
-        throw new IllegalStateException("Not implemented");
+        operations.add(new TurnLeft());
+        return this;
     }
 
     public MarsRover turnRight() {
-        throw new IllegalStateException("Not implemented");
+        operations.add(new TurnRight());
+        return this;
     }
 
     public MarsRover moveForward() {
-        throw new IllegalStateException("Not implemented");
+        operations.add(new GoStraight());
+        return this;
     }
 
     public MarsRover takeSample() {
-        throw new IllegalStateException("Not implemented");
+        operations.add(new TakeSample());
+        return this;
     }
 }
