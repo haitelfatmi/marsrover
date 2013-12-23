@@ -4,14 +4,8 @@ import java.awt.*;
 
 public class MoveEastWestAction extends AbstractAction {
 
-    public MoveEastWestAction(Point point, Facing facing) {
+    public MoveEastWestAction(Point point) {
 
-        super(point, facing);
-    }
-
-    @Override
-    public String getRepresentation() {
-
-        return "-";
+        super(point);
     }
 }

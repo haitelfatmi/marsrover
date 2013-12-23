@@ -4,14 +4,8 @@ import java.awt.*;
 
 public class TakeSampleAction extends AbstractAction {
 
-    public TakeSampleAction(Point point, Facing facing) {
+    public TakeSampleAction(Point point) {
 
-        super(point, facing);
-    }
-
-    @Override
-    public String getRepresentation() {
-
-        return "S";
+        super(point);
     }
 }

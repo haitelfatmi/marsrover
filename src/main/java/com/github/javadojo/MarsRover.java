@@ -36,7 +36,6 @@ public class MarsRover {
     static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     private Path path = new Path();
-    private PathRepresentation pathRepresentation = new PathRepresentation();
 
     public MarsRover(String operations) {
 
@@ -69,15 +68,21 @@ public class MarsRover {
 
     public String path() {
 
-        return pathRepresentation.compute(path);
+        return path.getRepresentation();
     }
 
     public MarsRover turnLeft() {
-        throw new IllegalStateException("Not implemented");
+
+        path.turnLeft();
+
+        return this;
     }
 
     public MarsRover turnRight() {
-        throw new IllegalStateException("Not implemented");
+
+        path.turnRight();
+
+        return this;
     }
 
     public MarsRover moveForward() {

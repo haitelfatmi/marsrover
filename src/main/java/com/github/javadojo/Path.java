@@ -9,9 +9,8 @@ import static com.github.javadojo.Facing.EAST;
 public class Path {
 
     private List<AbstractAction> actions = new ArrayList<>();
-
-    private PathRepresentation pathRepresentation = new PathRepresentation();
-    private Point pos = new Point();
+    private PathRepresentation representation = new PathRepresentation();
+    private Point position = new Point();
     private Facing facing = EAST;
 
     public void moveForward() {
@@ -19,18 +18,20 @@ public class Path {
         switch (facing) {
 
             case EAST:
-                pos.x++;
-                actions.add(new MoveEastWestAction(pos, facing));
+                position.x++;
+                actions.add(new MoveEastWestAction((Point) position.clone()));
                 break;
             case WEST:
-                pos.x--;
-                actions.add(new MoveEastWestAction(pos, facing));
+                position.x--;
+                actions.add(new MoveEastWestAction((Point) position.clone()));
                 break;
             case NORTH:
-                pos.y++;
+                position.y++;
+                actions.add(new MoveNorthSouthAction((Point) position.clone()));
                 break;
             case SOUTH:
-                pos.y--;
+                position.y--;
+                actions.add(new MoveNorthSouthAction((Point) position.clone()));
                 break;
         }
     }
@@ -41,6 +42,7 @@ public class Path {
 
             case EAST:
                 facing = Facing.NORTH;
+                actions.add(new TurnLeftAction((Point) position.clone()));
                 break;
             case WEST:
                 facing = Facing.SOUTH;
@@ -80,6 +82,11 @@ public class Path {
 
     public void takeSample() {
 
-        actions.add(new TakeSampleAction(pos, facing));
+        actions.add(new TakeSampleAction((Point) position.clone()));
+    }
+
+    public String getRepresentation() {
+
+        return representation.compute(this);
     }
 }
