@@ -1,5 +1,7 @@
 package com.github.javadojo;
 
+import static com.github.javadojo.Direction.*;
+
 /**
  * The Mars rover is programmed to drive around Mars.
  * Its programming is very simple. The commands are the following:
@@ -31,30 +33,59 @@ package com.github.javadojo;
  *     <dd>a place where a sample was taken</dd>
  * </dl>
  */
+
 public class MarsRover {
 
     static final String LINE_SEPARATOR = System.getProperty("line.separator");
-
+    
+    private Direction direction;
+    private Path path;
+    private Printer<String> printer;
+    
     public MarsRover(String operations) {
+        this(operations, new CommandParser(), new StringPrinter());
+    }
+    
+    public MarsRover(String operations, CommandParser commandParser, Printer<String> printer) {
+        this(printer);
+        //This reference 'escaping' from constructor. Bad practise, but the easy fix (change constructor signature + introduce factory) 
+        //involves changing the tests. There are other possible fixes, but the increased complexity is not justified.
+        commandParser.executesCommands(operations, this);
+    }
+    
+    private MarsRover(Printer<String> printer) {
+        direction = EAST;
+        path = new Path(new Coordinates(0,0), Cursor.LANDING_POINT);
+        this.printer = printer;
     }
 
     public String path() {
-        throw new IllegalStateException("Not implemented");
+        return path.printOn(printer);
     }
 
     public MarsRover turnLeft() {
-        throw new IllegalStateException("Not implemented");
+        direction = direction.turnLeft();
+        return turn();
     }
 
     public MarsRover turnRight() {
-        throw new IllegalStateException("Not implemented");
+        direction = direction.turnRight();
+        return turn();
+    }
+
+    private MarsRover turn() {
+        path.mark(Cursor.CROSSROAD);
+        return this;
     }
 
     public MarsRover moveForward() {
-        throw new IllegalStateException("Not implemented");
+        path.move(direction);
+        return this;
     }
 
     public MarsRover takeSample() {
-        throw new IllegalStateException("Not implemented");
+        path.mark(Cursor.SAMPLE);
+        return this;
     }
+    
 }
