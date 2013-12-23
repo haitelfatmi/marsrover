@@ -11,7 +11,7 @@ public class PathRepresentation {
 
     public PathRepresentation() {
 
-        chart = new Character[][] {{Character.valueOf('X')}};
+        chart = new Character[][] {{ Character.valueOf('X') }};
 
         action2representation.put(MoveEastWestAction.class, Character.valueOf('-'));
         action2representation.put(MoveNorthSouthAction.class, Character.valueOf('|'));
@@ -36,7 +36,11 @@ public class PathRepresentation {
             chart[y][x] = cha;
         }
 
+        // Final plot has to be overwritten whatever happened
         chart[y][x] = Character.valueOf('*');
+
+        // Some actions may happen on the landing plot
+        // They should be overwritten
         chart[0][0] = Character.valueOf('X');
 
         return getRepresentation();
@@ -48,18 +52,13 @@ public class PathRepresentation {
 
         for (int i = chart.length; i > 0; i--) {
 
+            // Parse lines in reverse order
+            // Start from the top to the bottom
             for (int j = 0; j < chart[0].length; j++) {
 
                 Character cha = chart[i - 1][j];
 
-                if (cha == null) {
-
-                    buffer.append(" ");
-
-                } else {
-
-                    buffer.append(cha.charValue());
-                }
+                buffer.append(cha == null ? " " : cha.charValue());
             }
 
             buffer.append(MarsRover.LINE_SEPARATOR);
@@ -76,7 +75,7 @@ public class PathRepresentation {
         // Create a new column if necessary
         if (x >= width) {
 
-            Character newRow[] = new Character[x + 1];
+            Character newRow[] = new Character[width + 1];
 
             System.arraycopy(chart[0], 0, newRow, 0, width);
 
@@ -86,18 +85,18 @@ public class PathRepresentation {
         // Create a new line if necessary
         if (y >= height) {
 
-            Character[][] newChart = new Character[chart.length + 1][chart[0].length];
+            Character[][] newChart = new Character[height + 1][width];
 
-            for (int i = 0; i < chart.length; i++) {
+            for (int i = 0; i < height; i++) {
 
-                Character newRow[] = new Character[chart[0].length];
+                Character newRow[] = new Character[width];
 
-                System.arraycopy(chart[i], 0, newRow, 0, chart[0].length);
+                System.arraycopy(chart[i], 0, newRow, 0, width);
 
                 newChart[i] = newRow;
             }
 
-            newChart[y] = new Character[chart[0].length];
+            newChart[y] = new Character[width];
 
             chart = newChart;
         }
