@@ -84,10 +84,10 @@ public class Path {
     }
 
     public <T> T printOn(Printer<T> printer) {
-        Cursor currentPositionCursor = getCurrentPoint().getCursor();
+        Point point = getCurrentPoint();
         mark(Cursor.CURRENT_POSITION);
         final T print = printer.print(this);
-        mark(currentPositionCursor);
+        addPoint(point);
         return print;
     }
     
