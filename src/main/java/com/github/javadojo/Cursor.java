@@ -7,9 +7,10 @@ public enum Cursor {
     HORIZONTAL_MOVEMENT('-', 100), 
     VERTICAL_MOVEMENT('|', 100), 
     CROSSROAD('+', 200), 
-    CURRENT_POSITION('*', 300), 
     SAMPLE('S', 400), 
-    LANDING_POINT('X', 500), ;
+    LANDING_POINT('X', 500), 
+    CURRENT_POSITION('*', 600), 
+    ;
 
     private static EnumMap<Cursor, EnumMap<Cursor, Cursor>> mergeTable;
 
