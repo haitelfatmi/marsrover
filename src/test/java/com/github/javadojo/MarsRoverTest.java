@@ -2,7 +2,6 @@ package com.github.javadojo;
 
 import static com.github.javadojo.MarsRover.LINE_SEPARATOR;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -104,7 +103,6 @@ public class MarsRoverTest {
         assertThat(marsRover.path(), equalTo(expectedPath));
     }
     
-    @Ignore("waiting for specification clarification")
     @Test
     public void samplePointIsNotOverridenOnSecondPass() {
         String expectedPath = new StringBuilder()
@@ -118,11 +116,10 @@ public class MarsRoverTest {
         assertThat(new MarsRover("sssSsssrsssrsssrssss").path(), equalTo(expectedPath));
     }
     
-    @Ignore("waiting for specification clarification")
     @Test
-    public void samplePointIsNotOverridenByCurrentPosition() {
+    public void samplePointIsOverridenByCurrentPosition() {
         String expectedPath = new StringBuilder()
-                .append("X--S--+").append(LINE_SEPARATOR)
+                .append("X--*--+").append(LINE_SEPARATOR)
                 .append("   |  |").append(LINE_SEPARATOR)
                 .append("   |  |").append(LINE_SEPARATOR)
                 .append("   +--+").append(LINE_SEPARATOR)
@@ -131,7 +128,6 @@ public class MarsRoverTest {
         assertThat(new MarsRover("sssSsssrsssrsssrsss").path(), equalTo(expectedPath));
     }
     
-    @Ignore("waiting for specification clarification")
     @Test
     public void startPointIsNotOverridenOnSecondPass() {
         String expectedPath = new StringBuilder()
@@ -145,11 +141,10 @@ public class MarsRoverTest {
         assertThat(new MarsRover("sssrsssrsssrssss").path(), equalTo(expectedPath));
     }
     
-    @Ignore("waiting for specification clarification")
     @Test
-    public void startPointIsNotOverridenByCurrentPosition() {
+    public void startPointIsOverridenByCurrentPosition() {
         String expectedPath = new StringBuilder()
-                .append("X--+").append(LINE_SEPARATOR)
+                .append("*--+").append(LINE_SEPARATOR)
                 .append("|  |").append(LINE_SEPARATOR)
                 .append("|  |").append(LINE_SEPARATOR)
                 .append("+--+").append(LINE_SEPARATOR)
@@ -158,7 +153,6 @@ public class MarsRoverTest {
         assertThat(new MarsRover("sssrsssrsssrsss").path(), equalTo(expectedPath));
     }
     
-    @Ignore("waiting for specification clarification")
     @Test
     public void intermediatePathCanBeSent() {
         MarsRover marsRover = new MarsRover("sss");
