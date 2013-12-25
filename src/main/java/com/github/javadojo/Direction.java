@@ -13,7 +13,7 @@ public enum Direction {
             return direction((current.value -1 + 4) % 4);
         }
         if (command == RoverCommand.TurnRight) {
-            return direction((current.value + 1 + 4) % 4);
+            return direction((current.value + 1) % 4);
         }
         return current;
     }
