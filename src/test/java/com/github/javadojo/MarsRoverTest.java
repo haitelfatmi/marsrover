@@ -1,6 +1,6 @@
 package com.github.javadojo;
 
-import static com.github.javadojo.MarsRover.LINE_SEPARATOR;
+import static com.github.javadojo.Drawing.LINE_SEPARATOR;
 
 import org.junit.Test;
 
@@ -52,6 +52,21 @@ public class MarsRoverTest {
                 .append("    *").append(LINE_SEPARATOR)
                 .append("    |").append(LINE_SEPARATOR)
                 .append("X---+").append(LINE_SEPARATOR)
+                .toString();
+        assertThat(rover.path(), equalTo(expectedPath));
+    }
+
+    @Test
+    public void driveWithSample() {
+        MarsRover rover = new MarsRover("s")
+                .turnLeft()
+                .moveForward()
+                .takeSample()
+                .moveForward();
+        String expectedPath = new StringBuilder()
+                .append(" *").append(LINE_SEPARATOR)
+                .append(" S").append(LINE_SEPARATOR)
+                .append("X+").append(LINE_SEPARATOR)
                 .toString();
         assertThat(rover.path(), equalTo(expectedPath));
     }
