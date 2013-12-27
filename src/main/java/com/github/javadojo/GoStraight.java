@@ -25,6 +25,6 @@ public class GoStraight extends Operation {
             default:
                 throw new IllegalStateException("Unknown direction");
         }
-        map.print(marsRover.position, pathSegment);
+        map.putSymbol(marsRover.position, pathSegment);
     }
 }

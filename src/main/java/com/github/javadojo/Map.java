@@ -1,61 +1,100 @@
 package com.github.javadojo;
 
 import java.awt.*;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class Map {
 
-    private final List<List<Character>> map = new ArrayList<List<Character>>();
+    private final InfiniteAutosizedList<InfiniteAutosizedList<Character>> map;
+    private final Point topRightExcluding = new Point(1, 1);
+    private final Point bottomLeft = new Point(0, 0);
+
+    public Map() {
+        this.map = new InfiniteAutosizedList<>(
+                new ArrayList<InfiniteAutosizedList<Character>>(),
+                new InfiniteAutosizedList.Filler<InfiniteAutosizedList<Character>>() {
+                    @Override
+                    public InfiniteAutosizedList<Character> get() {
+                        return new InfiniteAutosizedList<>(new ArrayList<Character>(), ' ');
+                    }
+                }
+        );
+    }
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        for (List<Character> line : reverse(map)) {
-            for (Character c : line) {
-                result.append(c);
+        StringWriter result = new StringWriter();
+        try {
+            print(result);
+        } catch (IOException ignore) {
+        } finally {
+            try {
+                result.close();
+            } catch (IOException ignore) {
             }
-            result.append(System.lineSeparator());
         }
         return result.toString();
+
     }
 
-    public void print(Point position, Character c) {
-        resizeIfNotContains(position);
+    public void print(Writer out) throws IOException {
+        for (int i = topRightExcluding.y - 1; i >= bottomLeft.y; i--) {
+            for (int j = bottomLeft.x; j <= topRightExcluding.x - 1; j++) {
+                out.write(map.get(i).get(j));
+            }
+            out.write(System.lineSeparator());
+        }
+    }
 
-        // we never override the starting point (X)
-        if (!map.get(position.y).get(position.x).equals('X')) {
+    public void putSymbol(Point position, Character c) {
+        resize(position);
+
+        // merge crossing path
+        if (getSymbol(position) == '|' && c == '-'
+                || getSymbol(position) == '-' && c == '|') {
+            c = '+';
+        }
+
+        // check if the symbol should override what's already on the map
+        if (priority(c) > priority(getSymbol(position))) {
             map.get(position.y).set(position.x, c);
         }
     }
 
-    private void resizeIfNotContains(Point position) {
-        // check height
-        if (position.y >= map.size()) {
-            for (int i = map.size(); i <= position.y; i++) {
-                map.add(new ArrayList<Character>());
-            }
+    // we could extract a symbol class and let each symbol know of its priority, but the priority
+    // is actually a concern of the map: different maps could decide to print different symbols
+    private int priority(Character c) {
+        switch (c) {
+            case ' ':
+                return -1;
+            case '-':
+                return 0;
+            case '|':
+                return 0;
+            case '+':
+                return 1;
+            case 'X':
+                return 2;
+            case 'S':
+                return 3;
+            case '*':
+                return 4;
         }
-        // check width
-        for (List<Character> line : map) {
-            if (position.x >= line.size()) {
-                for (int i = line.size(); i <= position.x; i++) {
-                    line.add(' ');
-                }
-            }
-        }
+        return 0;
     }
 
-    private <T> List<T> reverse(List<T> line) {
-        // Note: this way of reversing a list is pretty inefficient and ugly. Using Guava would be nicer, but I don't
-        // want to add any dependencies. Implementing a "ReverseIterator" would also be nicer, but too many lines of
-        // code. I'm lazy.
-        List<T> reversedLine = new ArrayList<T>();
-        for (T c : line) {
-            reversedLine.add(c);
-        }
-        Collections.reverse(reversedLine);
-        return reversedLine;
+    private void resize(Point position) {
+        topRightExcluding.x = Math.max(position.x + 1, topRightExcluding.x);
+        topRightExcluding.y = Math.max(position.y + 1, topRightExcluding.y);
+        bottomLeft.x = Math.min(position.x, bottomLeft.x);
+        bottomLeft.y = Math.min(position.y, bottomLeft.y);
     }
+
+    public Character getSymbol(Point position) {
+        return map.get(position.y).get(position.x);
+    }
+
 }

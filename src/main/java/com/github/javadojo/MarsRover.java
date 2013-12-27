@@ -39,7 +39,7 @@ public class MarsRover {
 
     static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
-    private final List<Operation> operations = new LinkedList<Operation>();
+    private final List<Operation> operations = new LinkedList<>();
 
     final Point position = new Point(0, 0);
     Direction direction = Direction.EAST;
@@ -67,14 +67,18 @@ public class MarsRover {
     }
 
     public String path() {
+        // TODO: needs refactoring, but let's walk the full path each time
+        position.move(0, 0);
+        direction = Direction.EAST;
+
         Map map = new Map();
-        // always print starting position
-        map.print(position, 'X');
+        // always putSymbol starting position
+        map.putSymbol(position, 'X');
         for (Operation operation: operations) {
             operation.execute(this, map);
         }
-        // print end position
-        map.print(position, '*');
+        // putSymbol end position
+        map.putSymbol(position, '*');
         return map.toString();
     }
 
