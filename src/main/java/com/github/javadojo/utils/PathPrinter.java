@@ -70,9 +70,9 @@ public final class PathPrinter {
    * Example:
    * Given 5 positions's coordinates of a mars rover: 
    * (-2,3); (1,4); (-4,0); (0,-3); (2,-1) then
-   * minX == -4; maxX == -2;
-   * minY == -3; maxY == -5;
-   * So the 2D array width == -maxX - minX + 1 & height == -maxY - minY + 1
+   * minX == -4; maxX == 2;
+   * minY == -3; maxY == 5;
+   * So the 2D array width == maxX - minX + 1 & height == maxY - minY + 1
    **/
   private AbsractPosition[][] convertPositionsListTo2DArray(List<Position> positions) {
     Comparator<Position> xComparator = Position.getxComparator();
@@ -95,7 +95,8 @@ public final class PathPrinter {
     for (int row = positionsArray.length - 1; row >= 0; row--) {
       for (int column = 0; column < positionsArray[row].length; column++) {
         AbsractPosition position = positionsArray[row][column];
-        position = (position == null) ? NullPosition.getInstanse() : position;//if the position is null replace it with NullPosition object 
+        //if the position is null replace it with NullPosition object 
+        position = (position == null) ? NullPosition.getInstanse() : position;
         stringBuilder.append(position);
       }
       stringBuilder.append(LINE_SEPARATOR);
