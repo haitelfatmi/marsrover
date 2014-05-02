@@ -37,6 +37,9 @@ public final class PathPrinter {
     return print(positionsArray);
   }
 
+ /**
+  * Return an independent copy of the given list
+  **/
   private List<Position> copyOf(List<Position> positionsHistory) {
     List<Position> positions = new LinkedList<>();
     for (Position position : positionsHistory) {
@@ -49,6 +52,9 @@ public final class PathPrinter {
     return positions;
   }
 
+  /**
+   * Detect the positions where the mars rover turned
+   **/
   private void detectTurnPoints(List<Position> positions) {
     for (int i = 1; i < positions.size() - 1; i++) {
       Position position = positions.get(i);
@@ -59,6 +65,15 @@ public final class PathPrinter {
     }
   }
 
+  /**
+   * Return the 2D representation of positions of the given list
+   * Example:
+   * Given 5 positions's coordinates of a mars rover: 
+   * (-2,3); (1,4); (-4,0); (0,-3); (2,-1) then
+   * minX == -4; maxX == -2;
+   * minY == -3; maxY == -5;
+   * So the 2D array width == -maxX - minX + 1 & height == -maxY - minY + 1
+   **/
   private AbsractPosition[][] convertPositionsListTo2DArray(List<Position> positions) {
     Comparator<Position> xComparator = Position.getxComparator();
     Comparator<Position> yComparator = Position.getyComparator();
@@ -79,9 +94,9 @@ public final class PathPrinter {
     StringBuilder stringBuilder = new StringBuilder();
     for (int row = positionsArray.length - 1; row >= 0; row--) {
       for (int column = 0; column < positionsArray[row].length; column++) {
-        AbsractPosition p = positionsArray[row][column];
-        p = (p == null) ? NullPosition.getInstanse() : p;
-        stringBuilder.append(p);
+        AbsractPosition position = positionsArray[row][column];
+        position = (position == null) ? NullPosition.getInstanse() : position;//if the position is null replace it with NullPosition object 
+        stringBuilder.append(position);
       }
       stringBuilder.append(LINE_SEPARATOR);
     }
