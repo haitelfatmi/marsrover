@@ -23,7 +23,7 @@ The Mars rover can send a 2D string representation of its path back to Mission C
 Your goal is to implement the MarsRover class to make all tests pass.
  
 
-Status : [![Build Status](https://travis-ci.org/JavaDojo/marsrover.png?branch=master)](https://travis-ci.org/JavaDojo/marsrover)
+Status : [![Build Status](https://travis-ci.org/JavaDojo/marsrover.png?branch=haitelfatmi)](https://travis-ci.org/JavaDojo/marsrover)
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/JavaDojo/marsrover/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
