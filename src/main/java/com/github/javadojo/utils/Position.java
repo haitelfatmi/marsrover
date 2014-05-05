@@ -30,8 +30,7 @@ public class Position implements Comparable<Position>, Cloneable, AbsractPositio
   }
 
   public Position(Integer x, Integer y, ActionSymbol symbol) {
-    this.x = x;
-    this.y = y;
+    this(x, y);
     this.symbole = symbol;
   }
 
