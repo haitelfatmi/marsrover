@@ -191,6 +191,20 @@ public class MarsRoverTest {
     assertThat(marsRover.path(), equalTo(finalPath));
   }
   
+    @Test
+  public void driveEastThenTurnRight4TimesThenMoveForward() {
+    MarsRover marsRover = new MarsRover("ssssrrrrssss");
+  
+    assertThat(marsRover.path(), equalTo("X-------*" + LINE_SEPARATOR));
+  }
+  
+  @Test
+  public void driveEastThenTurnRight2TimesThenMoveForward() {
+    MarsRover marsRover = new MarsRover("ssssrrssss");
+  
+    assertThat(marsRover.path(), equalTo("*---+" + LINE_SEPARATOR));
+  }
+  
   @Test(expected = IllegalArgumentException.class )
   public void exeptionExpected() {
     MarsRover marsRover = new MarsRover("sssgss");
